@@ -101,8 +101,8 @@ int brightnessOps() {
 		return 1;
 	}
 
-	// Call GetPhysicalMonitorsFromHMONITOR to get a handle to the physical monitor 
-	LPPHYSICAL_MONITOR physicalMonitors = (LPPHYSICAL_MONITOR)malloc(monitorCount*sizeof(PHYSICAL_MONITOR));
+	// Call GetPhysicalMonitorsFromHMONITOR to get a handle to the physical monitor
+	PHYSICAL_MONITOR* physicalMonitors = new PHYSICAL_MONITOR[monitorCount];
 	if (physicalMonitors == NULL) {
 		std::cout << "Unable to malloc the physical monitor array." << std::endl;
 		return 1;
@@ -125,6 +125,7 @@ int brightnessOps() {
 	// See: https://msdn.microsoft.com/en-us/library/aa272863(v=vs.60).aspx
 	// And: http://stackoverflow.com/questions/6300804/wchars-encodings-standards-and-portability
 	wprintf(L"%s\n", physicalMonitors[0].szPhysicalMonitorDescription);
+	printf("Physical Monitor Handle: %x\n", physicalMonitors[0].hPhysicalMonitor);
 
 
 	// Call GetMonitorCapabilities to find out which functions it supports (For now assume it is the first monitor)
@@ -169,8 +170,8 @@ int brightnessOps() {
 
 int _tmain(int argc, _TCHAR* argv[])
 {
-	//brightnessOps();
-	brightnessOps2();
+	brightnessOps();
+	//brightnessOps2();
 
 	std::cout << "Hello, Windows" << std::endl;
 
